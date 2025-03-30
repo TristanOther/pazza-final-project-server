@@ -1,3 +1,8 @@
+# Assignment provided
+node_modules
+.env.local
+.env
+
 # Logs
 logs
 *.log
