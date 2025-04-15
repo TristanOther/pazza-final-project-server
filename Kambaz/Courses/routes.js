@@ -2,6 +2,8 @@ import * as dao from "./dao.js";
 import * as modulesDao from "../Modules/dao.js";
 import * as assignmentsDao from "../Assignments/dao.js";
 import * as enrollmentsDao from "../Enrollments/dao.js";
+import * as postsDao from "../../Pazza/Posts/dao.js";
+import * as tagsDao from "../../Pazza/Tags/dao.js";
 
 export default function CourseRoutes(app) {
   app.get("/api/courses", async (req, res) => {
@@ -75,4 +77,36 @@ export default function CourseRoutes(app) {
     res.json(users);
   }; 
   app.get("/api/courses/:cid/users", findUsersForCourse);
+
+  app.get("/api/courses/:courseId/posts", async (req, res) => {
+    const { courseId } = req.params;
+    const posts = await postsDao.findPostsForCourse(courseId);
+    res.json(posts);
+  });
+
+  app.post("/api/courses/:courseId/posts", async (req, res) => {
+    const { courseId } = req.params;
+    const post = {
+      ...req.body,
+      course: courseId,
+    };
+    const newPost = await postsDao.createPost(post);
+    res.send(newPost);
+  });
+
+  app.get("/api/courses/:courseId/tags", async (req, res) => {
+    const { courseId } = req.params;
+    const tags = await tagsDao.findTagsForCourse(courseId);
+    res.json(tags);
+  });
+
+  app.post("/api/courses/:courseId/tags", async (req, res) => {
+    const { courseId } = req.params;
+    const tag = {
+      ...req.body,
+      course: courseId,
+    };
+    const newTag = await tagsDao.createPost(tag);
+    res.send(newTag);
+  });
 }
