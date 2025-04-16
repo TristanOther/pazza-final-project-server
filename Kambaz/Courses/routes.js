@@ -22,8 +22,9 @@ export default function CourseRoutes(app) {
 
   app.delete("/api/courses/:courseId", async (req, res) => {
     const { courseId } = req.params;
-    const status = await dao.deleteCourse(courseId);
-    res.send(status);
+    const courseStatus = await dao.deleteCourse(courseId);
+    const unenrollStatus = await enrollmentsDao.unenrollCourse(courseId);
+    res.send({ courseDeleted: courseStatus, unenrollmentsCleared: unenrollStatus });
   });
 
   app.put("/api/courses/:courseId", async (req, res) => {
@@ -90,8 +91,12 @@ export default function CourseRoutes(app) {
       ...req.body,
       course: courseId,
     };
-    const newPost = await postsDao.createPost(post);
-    res.send(newPost);
+    try {
+      const newPost = await postsDao.createPost(post);
+      res.send(newPost);
+    } catch (err) {
+      res.status(400).send({error: "Error creating post. Ensure required fields are present."});
+    }
   });
 
   app.get("/api/courses/:courseId/tags", async (req, res) => {
@@ -106,7 +111,11 @@ export default function CourseRoutes(app) {
       ...req.body,
       course: courseId,
     };
-    const newTag = await tagsDao.createPost(tag);
-    res.send(newTag);
+    try {
+      const newTag = await tagsDao.createPost(tag);
+      res.send(newTag);
+    } catch (err) {
+      res.status(400).send({error: "Error creating tag. Ensure required fields are present."});
+    }
   });
 }
