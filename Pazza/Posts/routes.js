@@ -7,7 +7,7 @@ export default function PostRoutes(app) {
     res.send(status);
   });
 
-  app.put("/api/posts/:posts", async (req, res) => {
+  app.put("/api/posts/:postId", async (req, res) => {
     const { postId } = req.params;
     const postUpdates = req.body;
     const status = await postsDao.updatePost(postId, postUpdates);
