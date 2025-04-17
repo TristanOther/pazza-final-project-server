@@ -5,6 +5,10 @@ export function findPostsForCourse(courseId) {
   return model.find({course: courseId});
 }
 
+export function getPost(postId) {
+  return model.findOne({_id: postId});
+}
+
 export function createPost(post) {
   const newPost = { ...post, _id: uuidv4(), createdAt: new Date() };
   return model.create(newPost);

@@ -1,6 +1,12 @@
 import * as postsDao from "./dao.js";
 
 export default function PostRoutes(app) {
+  app.get("/api/posts/:postId", async (req, res) => {
+    const { postId } = req.params;
+    const post = await postsDao.getPost(postId);
+    res.send(post);
+  });
+
   app.delete("/api/posts/:postId", async (req, res) => {
     const { postId } = req.params;
     const status = await postsDao.deletePost(postId);
