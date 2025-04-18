@@ -112,7 +112,7 @@ export default function CourseRoutes(app) {
       course: courseId,
     };
     try {
-      const newTag = await tagsDao.createPost(tag);
+      const newTag = await tagsDao.createTag(tag);
       res.send(newTag);
     } catch (err) {
       res.status(400).send({error: "Error creating tag. Ensure required fields are present."});
