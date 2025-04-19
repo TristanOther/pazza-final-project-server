@@ -13,6 +13,8 @@ import ModuleRoutes from "./Kambaz/Modules/routes.js";
 import AssignmentRoutes from "./Kambaz/Assignments/routes.js";
 import PostRoutes from './Pazza/Posts/routes.js';
 import TagRoutes from './Pazza/Tags/routes.js';
+import DiscussionPostRoutes from './Pazza/DiscussionPosts/routes.js';
+import AnswersRoutes from './Pazza/Answers/routes.js';
 
 const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz";
 mongoose.connect(CONNECTION_STRING);
@@ -49,6 +51,8 @@ ModuleRoutes(app);
 AssignmentRoutes(app);
 PostRoutes(app);
 TagRoutes(app);
+AnswersRoutes(app);
+DiscussionPostRoutes(app);
 
 Hello(app);
 Lab5(app);
