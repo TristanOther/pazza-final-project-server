@@ -3,7 +3,7 @@ import * as tagsDao from "./dao.js";
 export default function TagRoutes(app) {
   app.delete("/api/tags/:tagId", async (req, res) => {
     const { tagId } = req.params;
-    const status = await tagsDao.deleteTag(assignmentId);
+    const status = await tagsDao.deleteTag(tagId);
     res.send(status);
   });
 
