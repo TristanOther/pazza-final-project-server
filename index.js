@@ -16,6 +16,10 @@ import TagRoutes from './Pazza/Tags/routes.js';
 import DiscussionPostRoutes from './Pazza/DiscussionPosts/routes.js';
 import AnswersRoutes from './Pazza/Answers/routes.js';
 
+import DiscussionRoutes from "./Pazza/Discussions/routes.js";
+import ReplyRoutes from "./Pazza/Replies/routes.js";
+
+
 const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kambaz";
 mongoose.connect(CONNECTION_STRING);
 
@@ -53,6 +57,9 @@ PostRoutes(app);
 TagRoutes(app);
 AnswersRoutes(app);
 DiscussionPostRoutes(app);
+
+DiscussionRoutes(app);
+ReplyRoutes(app);
 
 Hello(app);
 Lab5(app);
