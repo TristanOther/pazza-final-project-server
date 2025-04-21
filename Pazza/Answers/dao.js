@@ -1,12 +1,28 @@
 import model from "./model.js";
 import { v4 as uuidv4 } from "uuid";
 
+export function findAnswersForPost(postId) {
+  return model.find({ post: postId });
+}
+
 export function findStudentAnswersForPost(postId) {
-  return model.find({post: postId, instructor: false});
+  return model.find({ post: postId, instructor: false });
 }
 
 export function findInstructorAnswersForPost(postId) {
-  return model.find({post: postId, instructor: true});
+  return model.find({ post: postId, instructor: true });
+}
+
+export function findAnswersForCourse(courseId) {
+  return model.find({ course: courseId });
+}
+
+export function findStudentAnswersForCourse(courseId) {
+  return model.find({ course: courseId, instructor: false });
+}
+
+export function findInstructorAnswersForCourse(courseId) {
+  return model.find({ course: courseId, instructor: true });
 }
 
 export function getAnswer(answerId) {
