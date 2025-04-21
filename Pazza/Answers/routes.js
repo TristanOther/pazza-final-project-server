@@ -13,6 +13,24 @@ export default function AnswersRoutes(app) {
     res.json(answers);
   });
 
+  app.get("/api/answers/:postId/course", async (req, res) => {
+    const { cid } = req.params;
+    const answers = await answersDao.findAnswersForCourse(cid);
+    res.json(answers);
+  });
+
+  app.get("/api/answers/:postId/course/student", async (req, res) => {
+    const { cid } = req.params;
+    const answers = await answersDao.findStudentAnswersForCourse(cid);
+    res.json(answers);
+  });
+
+  app.get("/api/answers/:postId/course/instructor", async (req, res) => {
+    const { cid } = req.params;
+    const answers = await answersDao.findInstructorAnswersForCourse(cid);
+    res.json(answers);
+  });
+
   app.get("/api/answers/:answerId", async (req, res) => {
     const { answerId } = req.params;
     const answer = await answersDao.getAnswer();

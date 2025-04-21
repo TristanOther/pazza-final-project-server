@@ -35,7 +35,15 @@ export default function DiscussionPostRoutes(app) {
   });
 
   app.delete("/api/discussionpost/:discussionPostId", async (req, res) => {
+    const deleteChildren = async (dpid) => {
+      const children = await discussionPostsDao.findDiscussionPosts(dpid);
+      children.map(async (child) => {
+        await discussionPostsDao.deleteDiscussionPost(child._id);
+      });
+    }
+    
     const { discussionPostId } = req.params;
+    deleteChildren(discussionPostId);
     const status = await discussionPostsDao.deleteDiscussionPost(discussionPostId);
     res.send(status);
   });
